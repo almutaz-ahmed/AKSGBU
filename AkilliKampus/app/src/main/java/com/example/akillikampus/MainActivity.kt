@@ -3,45 +3,49 @@ package com.example.akillikampus
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.akillikampus.ui.theme.AkilliKampusTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            AkilliKampusTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+        setContent { // Uygulamanın genel teması
+        MaterialTheme {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                // Hangi ekranın gösterileceğini tutan basit bir değişken
+                // Başlangıçta "Giris" ekranı açılacak
+                var suankiEkran by remember { mutableStateOf("Giris") }
+
+                // Ekranlar arası geçiş mantığı
+                when (suankiEkran) {
+                    "Giris" -> {
+                        GirisEkrani(
+                            kayitEkraninaGit = { suankiEkran = "Kayit" },
+                            girisBasarili = { suankiEkran = "AnaSayfa" }
+                        )
+                    }
+                    "Kayit" -> {
+                        KayitEkrani(
+                            girisEkraninaDon = { suankiEkran = "Giris" }
+                        )
+                    }
+                    "AnaSayfa" -> {
+                        // Şimdilik buraya geçici bir yazı koyuyoruz
+                        // Bir sonraki adımda buraya gerçek Ana Sayfayı yapacağız
+                        Text(text = "Giriş Başarılı! Ana Sayfadasınız.")
+                    }
                 }
             }
         }
     }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AkilliKampusTheme {
-        Greeting("Android")
     }
 }
+
+

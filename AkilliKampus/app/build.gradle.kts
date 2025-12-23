@@ -1,4 +1,5 @@
 plugins {
+    id("com.google.gms.google-services")
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
@@ -56,4 +57,11 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))//Modül Düzeyindeki Gradle Dosyası
+    implementation("com.google.firebase:firebase-analytics")
+    // firebase authentication (giriş işlemleri için)
+    implementation("com.google.firebase:firebase-auth")
+
+    // firebase firestore (veritabanı işlemleri için)
+    implementation("com.google.firebase:firebase-firestore")
 }

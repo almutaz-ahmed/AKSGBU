@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "876627136042",
+    "project_id": "akillikampus-almutaz",
+    "storage_bucket": "akillikampus-almutaz.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876627136042:android:02f319bdb41fe90fcbbd53",
+        "android_client_info": {
+          "package_name": "com.example.akillikampus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKweaJ1HdrMdRcEdhiYEUHT_0dcu-YWZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
