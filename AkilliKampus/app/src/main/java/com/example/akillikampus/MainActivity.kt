@@ -21,9 +21,16 @@ class MainActivity : ComponentActivity() {
             ) {
                 // Hangi ekranın gösterileceğini tutan basit bir değişken
                 // Başlangıçta "Giris" ekranı açılacak
+                //var suankiEkran by remember { mutableStateOf("Giris") }
+                //MAIN ACTIVITY ICINDEKI DEGISKENLER
                 var suankiEkran by remember { mutableStateOf("Giris") }
 
-                // Ekranlar arası geçiş mantığı
+                // HARITA DETAY SAYFASI ICIN GECICI VERILER
+                var secilenDetayBaslik by remember { mutableStateOf("") }
+                var secilenDetayTur by remember { mutableStateOf("") }
+                var secilenDetayZaman by remember { mutableStateOf("") }
+
+                // --- NAVIGASYON BLOGU ---
                 when (suankiEkran) {
                     "Giris" -> {
                         GirisEkrani(
@@ -37,9 +44,38 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     "AnaSayfa" -> {
-                        // Şimdilik buraya geçici bir yazı koyuyoruz
-                        // Bir sonraki adımda buraya gerçek Ana Sayfayı yapacağız
-                        Text(text = "Giriş Başarılı! Ana Sayfadasınız.")
+                        AnaSayfa(
+                            cikisYap = { suankiEkran = "Giris" },
+                            bildirimEkleSayfasinaGit = { suankiEkran = "BildirimEkle" },
+                            talepOlusturSayfasinaGit = { /* Yapilacak */ },
+                            talepleriGorSayfasinaGit = { /* Yapilacak */ },
+                            haritayaGit = { suankiEkran = "Harita" } // BURAYI GUNCELLEDİK
+                        )
+                    }
+                    "BildirimEkle" -> {
+                        BildirimEkleEkrani(
+                            geriDon = { suankiEkran = "AnaSayfa" }
+                        )
+                    }
+                    "Harita" -> {
+                        HaritaEkrani(
+                            geriDon = { suankiEkran = "AnaSayfa" },
+                            detayaGit = { baslik, tur, zaman ->
+                                // VERILERI KAYDET VE EKRANI DEGISTIR
+                                secilenDetayBaslik = baslik
+                                secilenDetayTur = tur
+                                secilenDetayZaman = zaman
+                                suankiEkran = "HaritaDetay"
+                            }
+                        )
+                    }
+                    "HaritaDetay" -> {
+                        HaritaDetayEkrani(
+                            baslik = secilenDetayBaslik,
+                            tur = secilenDetayTur,
+                            neKadarOnce = secilenDetayZaman,
+                            geriDon = { suankiEkran = "Harita" }
+                        )
                     }
                 }
             }
