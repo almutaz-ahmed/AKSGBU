@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -31,7 +32,8 @@ fun AnaSayfa(
     talepleriGorSayfasinaGit: () -> Unit,
     haritayaGit: () -> Unit,
     bildirimDetayaGit: (String) -> Unit,
-    profilSayfasinaGit: () -> Unit
+    profilSayfasinaGit: () -> Unit,
+    bildirimKutusunaGit: () -> Unit
 ) {
     val auth = FirebaseAuth.getInstance()
     val db = FirebaseFirestore.getInstance()
@@ -64,14 +66,19 @@ fun AnaSayfa(
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text("Akıllı Kampüs") },
-                // SOL ÜST: PROFIL IKONU (Burayı 'Person' yaptık, garanti çalışır)
+                //  PROFIL IKONU
                 navigationIcon = {
                     IconButton(onClick = profilSayfasinaGit) {
                         Icon(Icons.Default.Person, contentDescription = "Profil", tint = Color.White)
                     }
                 },
-                // SAĞ ÜST: ÇIKIŞ IKONU
+                //  BILDIRIM VE CIKIS IKONLARI
                 actions = {
+                    // ZİL İKONU (ARTIK HATA VERMEYECEK)
+                    IconButton(onClick = bildirimKutusunaGit) {
+                        Icon(Icons.Default.Notifications, contentDescription = "Bildirimler", tint = Color.White)
+                    }
+                    // ÇIKIŞ İKONU
                     IconButton(onClick = { auth.signOut(); cikisYap() }) {
                         Icon(Icons.AutoMirrored.Filled.ExitToApp, contentDescription = "Çıkış", tint = Color.White)
                     }
@@ -105,7 +112,7 @@ fun AnaSayfa(
             }
 
             Spacer(Modifier.height(16.dp))
-            HorizontalDivider() // Eski Divider yerine bu kullaniliyor
+            HorizontalDivider()
             Spacer(Modifier.height(16.dp))
 
             // --- DUYURU LISTESI ---

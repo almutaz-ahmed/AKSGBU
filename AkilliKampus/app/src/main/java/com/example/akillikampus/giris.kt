@@ -39,7 +39,7 @@ fun GirisEkrani(
     var sifre by remember { mutableStateOf("") }
     var yukleniyorMu by remember { mutableStateOf(false) }
 
-    // Şifre Sıfırlama Penceresi Açık mı?
+    // Şifre Sıfırlama Penceresi
     var sifreSifirlamaPenceresiGoster by remember { mutableStateOf(false) }
     var sifirlamaEposta by remember { mutableStateOf("") }
 
@@ -127,7 +127,7 @@ fun GirisEkrani(
                 singleLine = true
             )
 
-            // --- ŞİFREMİ UNUTTUM YAZISI (YENİ EKLENDİ) ---
+            // --- ŞİFREMİ UNUTTUM YAZISI ---
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = "Şifremi Unuttum",

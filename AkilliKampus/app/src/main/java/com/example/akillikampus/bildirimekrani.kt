@@ -24,7 +24,7 @@ fun BildirimEkleEkrani(geriDon: () -> Unit) {
     var baslik by remember { mutableStateOf("") }
     var aciklama by remember { mutableStateOf("") }
 
-    // ARTIK LISTEYI CLASS'TAN CEKIYORUZ
+
     var secilenTur by remember { mutableStateOf(BildirimTuru.GENEL) }
 
     Scaffold(
@@ -41,7 +41,7 @@ fun BildirimEkleEkrani(geriDon: () -> Unit) {
             Text("Tür Seçin:", fontWeight = FontWeight.Bold)
             // SINIFTAKI TUM TURLERI DONGUYE SOKUYORUZ
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
-                // Sadece ilk 3-4 tanesini gösterelim sığması için, veya LazyRow kullanabilirsin
+                // Sadece ilk 3-4 tanesini gösterelim sığması için, veya LazyRow kullanırız
                 BildirimTuru.entries.take(4).forEach { tur ->
                     FilterChip(
                         selected = (secilenTur == tur),

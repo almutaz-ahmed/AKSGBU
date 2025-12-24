@@ -8,7 +8,7 @@ data class Talep(
     val durum: String = "Bekliyor",
     val tur: String = "Genel",
     val konum: String = "",
-    // YENİ EKLENEN ALAN: FOTOĞRAF YOLU
+
     val resimUri: String = "",
     val tarih: Long = 0,
     val takipciler: List<String> = emptyList()

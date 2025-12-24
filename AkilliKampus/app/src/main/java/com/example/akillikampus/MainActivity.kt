@@ -69,8 +69,15 @@ class MainActivity : ComponentActivity() {
                                 secilenBildirimId = id
                                 suankiEkran = "BildirimDetay"
                             },
-                            // YENİ BAĞLANTIYI BURAYA EKLE:
-                            profilSayfasinaGit = { suankiEkran = "Profil" }
+                            profilSayfasinaGit = { suankiEkran = "Profil" },
+                            // YENİ BAĞLANTI:
+                            bildirimKutusunaGit = { suankiEkran = "BildirimKutusu" }
+                        )
+                    }
+                    // YENİ EKRAN ROTASI
+                    "BildirimKutusu" -> {
+                        BildirimlerimEkrani(
+                            geriDon = { suankiEkran = "AnaSayfa" }
                         )
                     }
                     "BildirimEkle" -> {

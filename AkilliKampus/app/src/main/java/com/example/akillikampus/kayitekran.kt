@@ -61,7 +61,7 @@ fun KayitEkrani(
                             .addOnSuccessListener { sonuc ->
                                 val uid = sonuc.user?.uid
                                 if (uid != null) {
-                                    // ÖNEMLİ: Daha önce oluşturduğumuz Kullanici modelini kullanıyoruz
+                                    //  Daha önce oluşturduğumuz Kullanici modelini kullanıyoruz
                                     val yeniKullanici = Kullanici(
                                         id = uid,
                                         adSoyad = adSoyad,

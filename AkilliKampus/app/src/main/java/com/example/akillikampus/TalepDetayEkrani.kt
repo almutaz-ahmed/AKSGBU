@@ -53,7 +53,7 @@ fun TalepDetayEkrani(
     var tur by remember { mutableStateOf("") }
     var tarih by remember { mutableStateOf(0L) }
     var resimUri by remember { mutableStateOf("") }
-    // YENİ EKLENDİ: GÖNDEREN KİŞİNİN MAİLİ
+    // GÖNDEREN KİŞİNİN MAİLİ
     var gonderenEmail by remember { mutableStateOf("") }
 
     var takipciler by remember { mutableStateOf(listOf<String>()) }
@@ -102,9 +102,28 @@ fun TalepDetayEkrani(
     val tarihFormati = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale("tr"))
     val tarihStr = if (tarih > 0) tarihFormati.format(Date(tarih)) else ""
 
+    // --- DURUM GUNCELLEME (VE BILDIRIM GONDERME) ---
     fun durumGuncelle(yeniDurum: String) {
+        // 1. Durumu Güncelle
         db.collection("Talepler").document(talepId).update("durum", yeniDurum)
-        Toast.makeText(context, "Durum: $yeniDurum yapıldı", Toast.LENGTH_SHORT).show()
+
+        // 2. Takipçilere Bildirim Gönder (OTOMATİK)
+        if (takipciler.isNotEmpty()) {
+            val mesaj = "'$baslik' başlıklı talebinizin durumu '$yeniDurum' olarak güncellendi."
+
+            // Her bir takipçi için veritabanına bildirim yaz
+            takipciler.forEach { kimeId ->
+                val yeniBildirim = KisiselBildirim(
+                    id = UUID.randomUUID().toString(),
+                    kullaniciId = kimeId,
+                    mesaj = mesaj,
+                    tarih = System.currentTimeMillis(),
+                    tur = "Bilgi"
+                )
+                db.collection("KisiselBildirimler").document(yeniBildirim.id).set(yeniBildirim)
+            }
+        }
+        Toast.makeText(context, "Durum güncellendi ve takipçilere bildirim gitti! 🔔", Toast.LENGTH_SHORT).show()
     }
 
     fun takipEtBirak() {
@@ -139,7 +158,7 @@ fun TalepDetayEkrani(
                 .padding(16.dp)
                 .verticalScroll(rememberScrollState())
         ) {
-            // --- 1. GÖNDEREN BİLGİSİ KARTI (YENİ EKLENDİ) ---
+            // --- 1. GÖNDEREN BİLGİSİ KARTI  ---
             Card(
                 colors = CardDefaults.cardColors(containerColor = Color(0xFFF5F5F5)),
                 shape = RoundedCornerShape(12.dp),
