@@ -67,4 +67,6 @@ dependencies {
     //harita kutuphanesi
     implementation("com.google.maps.android:maps-compose:4.3.3")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
+    //Fotoğrafları göstermek için modern bir araç olan Coil
+    implementation("io.coil-kt:coil-compose:2.5.0")
 }
